@@ -1,0 +1,39 @@
+server:
+  port: 8085
+spring:
+  application:
+    name: hotel-api-gateway
+  config:
+    import: optional:consul:localhost:8500
+  cloud:
+    consul:
+      discovery:
+        instance-id: "${spring.cloud.client.hostname}:${spring.application.name}:${random.int[1,999999]}"
+#        enabled: true
+#      config:
+#        import-check:
+#          enabled: false
+    gateway:
+      routes:
+      #Route Mapping
+        - id: reservation-service
+          #uri: lb://reservation-service
+          uri: http://localhost:8081/
+          predicates:
+            - Path=/api/reservation/**
+
+        - id: guest-service
+#          uri: lb://guest-service
+          uri: http://localhost:8082/
+          predicates:
+            - Path=/api/guest/**
+
+        - id: hotel-service
+          uri: lb://hotel-service
+          predicates:
+            - Path=/api/hotel/**
+
+        - id: payment-service
+          uri: lb://payment-service
+          predicates:
+            - Path=/api/payment/**
