@@ -6,7 +6,6 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -37,16 +36,16 @@ public class Hotel {
   @Column(name = "star_rating")
   private String starRating;
 
-  //@Column(name = "address")
-  @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "hotel")
-  private Address address;
-
   @Column(name = "total_room")
   private int totalRoom;
 
+  @OneToOne(cascade = CascadeType.ALL)
+  @JoinColumn(name = "address_id", referencedColumnName = "id")
+  private Address address;
+
   @OneToMany(targetEntity = Room.class, cascade = CascadeType.ALL)
-  @JoinColumn(name = "hr_fk", referencedColumnName = "id")
-  private List<Room> roomList;
+  @JoinColumn(name = "hotel_id", referencedColumnName = "id")
+  private List<Room> rooms;
 
   public HotelDto toHotelDto() {
     return HotelDto.builder()

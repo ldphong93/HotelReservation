@@ -3,11 +3,9 @@ package hotelsolution.hotelservice.model.entity;
 import java.math.BigInteger;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import lombok.AllArgsConstructor;
@@ -36,7 +34,6 @@ public class Address {
   @Column(name = "country")
   private String country;
 
-  @OneToOne(fetch = FetchType.LAZY, optional = false)
-  @JoinColumn(name = "hotel_id", nullable = false)
+  @OneToOne(mappedBy = "address")
   private Hotel hotel;
 }

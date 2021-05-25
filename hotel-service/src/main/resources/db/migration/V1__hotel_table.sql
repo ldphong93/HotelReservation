@@ -4,7 +4,8 @@ CREATE TABLE hotel
     name VARCHAR(255) NOT NULL,
     star_rating VARCHAR(255) NOT NULL,
 --    address VARCHAR(255) NOT NULL,
-    total_room INT
+    total_room INT,
+    address_id BIGSERIAL
 );
 
 CREATE TABLE room
@@ -14,7 +15,7 @@ CREATE TABLE room
     room_type VARCHAR(255) NOT NULL,
     room_status VARCHAR(255) NOT NULL,
     price BIGSERIAL,
-    hr_fk BIGSERIAL
+    hotel_id BIGSERIAL
 );
 
 CREATE TABLE address
@@ -22,6 +23,6 @@ CREATE TABLE address
     id BIGSERIAL PRIMARY KEY,
     full_address VARCHAR(255) NOT NULL,
     city VARCHAR(255) NOT NULL,
-    country VARCHAR(255) NOT NULL,
-    ha_fk BIGSERIAL
+    country VARCHAR(255) NOT NULL
+--    ha_id BIGSERIAL
 );

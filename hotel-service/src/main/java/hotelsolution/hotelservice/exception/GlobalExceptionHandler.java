@@ -23,10 +23,10 @@ public class GlobalExceptionHandler {
 
   private final ExceptionConverter exceptionConverter = new ExceptionConverter();
 
-  @ExceptionHandler(GuestServiceException.class)
+  @ExceptionHandler(HotelServiceException.class)
   protected ResponseEntity<Object> handleProfileServiceException(
-      GuestServiceException exception) {
-    log.error("Guest Service Exception [{}]", exception.getErrorResponse().getMessage());
+      HotelServiceException exception) {
+    log.error("Hotel Service Exception [{}]", exception.getErrorResponse().getMessage());
     return ResponseEntity.status(exception.getErrorResponse().getHttpStatus())
         .body(exceptionConverter.convertToJsonNode(exception.getErrorResponse(), StringUtils.EMPTY, tracer));
   }

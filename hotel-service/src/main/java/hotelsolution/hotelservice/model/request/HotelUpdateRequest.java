@@ -9,7 +9,7 @@ import lombok.Getter;
 @Data
 @Getter
 @Builder
-public class HotelCreateRequest {
+public class HotelUpdateRequest {
 
   @NotBlank(message = "Name is required.")
   private String name;
@@ -19,7 +19,6 @@ public class HotelCreateRequest {
   private int totalRoom;
 
   private AddressRequest addressRequest;
-
   private List<RoomRequest> roomRequestList;
 
 }
