@@ -1,0 +1,20 @@
+server:
+  port: 8083
+spring:
+  application:
+    name: hotel-service
+  datasource:
+    url: jdbc:postgresql://localhost:5432/hotel
+    username: postgres
+    password: password
+    flyway:
+      schemas: hotel
+      user: postgres
+      password: password
+      enabled: true
+  config:
+    import: optional:consul:localhost:8500
+  cloud:
+    consul:
+      discovery:
+        instance-id: "${spring.cloud.client.hostname}:${spring.application.name}:${random.int[1,999999]}"
