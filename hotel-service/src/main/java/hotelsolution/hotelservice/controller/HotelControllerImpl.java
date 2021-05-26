@@ -1,42 +1,78 @@
 package hotelsolution.hotelservice.controller;
 
-import hotelsolution.hotelservice.model.entity.Hotel;
+import hotelsolution.hotelservice.model.dto.HotelDto;
+import hotelsolution.hotelservice.model.dto.RoomDto;
+import hotelsolution.hotelservice.model.dto.RoomTypeDto;
 import hotelsolution.hotelservice.model.request.HotelCreateRequest;
-import hotelsolution.hotelservice.repository.HotelRepository;
-import hotelsolution.hotelservice.repository.RoomRepository;
+import hotelsolution.hotelservice.model.request.HotelUpdateRequest;
+import hotelsolution.hotelservice.model.request.RoomRequest;
+import hotelsolution.hotelservice.model.request.RoomTypeRequest;
+import hotelsolution.hotelservice.service.HotelService;
+import java.math.BigInteger;
 import java.util.List;
+import javax.validation.Valid;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 
+@Slf4j(topic = "[HotelControllerImpl]")
 @RestController
-@RequestMapping("/api/hotel")
-public class HotelControllerImpl {
+public class HotelControllerImpl implements HotelController{
+
+  private HotelService hotelService;
 
   @Autowired
-  private HotelRepository hotelRepository;
-  @Autowired
-  private RoomRepository roomRepository;
-
-  @GetMapping
-  public List<Hotel> getAllHotel(){
-    return hotelRepository.findAll();
+  public HotelControllerImpl(HotelService hotelService) {
+    this.hotelService = hotelService;
   }
 
-  @PostMapping
-  void createGuest( @RequestBody HotelCreateRequest request){
-    Hotel hotel = Hotel.builder()
-        .name(request.getName())
-        .starRating(request.getStarRating())
-        .address(request.getAddress())
-        .totalRoom(request.getTotalRoom())
-        .roomList(request.getListRoom())
-        .build();
+  @Override
+  public ResponseEntity<HotelDto> retrieveHotel(BigInteger hotelId) {
 
-    hotelRepository.save(hotel);
-
+    log.info("Retrieve hotel with id [{}].", hotelId);
+    return ResponseEntity.ok(hotelService.findHotelById(hotelId));
   }
+
+  @Override
+  public ResponseEntity<List<HotelDto>> retrieveAllHotel() {
+
+    log.info("Retrieve all hotel.");
+    return ResponseEntity.ok(hotelService.findAllHotel());
+  }
+
+  @Override
+  public ResponseEntity<HotelDto> createHotel(@Valid HotelCreateRequest request) {
+
+    log.info("Create hotel with name [{}]", request.getName());
+    return ResponseEntity.ok(hotelService.create(request));
+  }
+
+  @Override
+  public ResponseEntity<HotelDto> updateHotel(BigInteger hotelId,
+      @Valid HotelUpdateRequest request) {
+
+    log.info("Update hotel with id [{}].", hotelId);
+    return ResponseEntity.ok(hotelService.updateHotel(hotelId, request));
+  }
+
+  @Override
+  public ResponseEntity<HotelDto> deleteHotel(BigInteger hotelId) {
+
+    log.info("Delete hotel with id [{}].", hotelId);
+    return ResponseEntity.ok(hotelService.deleteHotel(hotelId));
+  }
+
+  @Override
+  public ResponseEntity<RoomTypeDto> createRoomType(@Valid RoomTypeRequest roomTypeRequest) {
+    log.info("Create room type with room name [{}].", roomTypeRequest.getName());
+    return ResponseEntity.ok(hotelService.addRoomType(roomTypeRequest));
+  }
+
+  @Override
+  public ResponseEntity<RoomDto> createRoom(@Valid RoomRequest roomRequest) {
+    log.info("Create room with room number [{}]", roomRequest.getRoomNumber());
+    return ResponseEntity.ok(hotelService.addRoom(roomRequest));
+  }
+
 }
