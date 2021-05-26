@@ -1,8 +1,12 @@
 package hotelsolution.hotelservice.controller;
 
 import hotelsolution.hotelservice.model.dto.HotelDto;
+import hotelsolution.hotelservice.model.dto.RoomDto;
+import hotelsolution.hotelservice.model.dto.RoomTypeDto;
 import hotelsolution.hotelservice.model.request.HotelCreateRequest;
 import hotelsolution.hotelservice.model.request.HotelUpdateRequest;
+import hotelsolution.hotelservice.model.request.RoomRequest;
+import hotelsolution.hotelservice.model.request.RoomTypeRequest;
 import hotelsolution.hotelservice.service.HotelService;
 import java.math.BigInteger;
 import java.util.List;
@@ -57,6 +61,18 @@ public class HotelControllerImpl implements HotelController{
 
     log.info("Delete hotel with id [{}].", hotelId);
     return ResponseEntity.ok(hotelService.deleteHotel(hotelId));
+  }
+
+  @Override
+  public ResponseEntity<RoomTypeDto> createRoomType(@Valid RoomTypeRequest roomTypeRequest) {
+    log.info("Create room type with room name [{}].", roomTypeRequest.getName());
+    return ResponseEntity.ok(hotelService.addRoomType(roomTypeRequest));
+  }
+
+  @Override
+  public ResponseEntity<RoomDto> createRoom(@Valid RoomRequest roomRequest) {
+    log.info("Create room with room number [{}]", roomRequest.getRoomNumber());
+    return ResponseEntity.ok(hotelService.addRoom(roomRequest));
   }
 
 }

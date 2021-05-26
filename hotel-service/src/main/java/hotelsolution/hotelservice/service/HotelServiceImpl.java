@@ -3,11 +3,18 @@ package hotelsolution.hotelservice.service;
 import hotelsolution.hotelservice.enums.ErrorResponse;
 import hotelsolution.hotelservice.exception.HotelServiceException;
 import hotelsolution.hotelservice.model.dto.HotelDto;
+import hotelsolution.hotelservice.model.dto.RoomDto;
+import hotelsolution.hotelservice.model.dto.RoomTypeDto;
 import hotelsolution.hotelservice.model.entity.Hotel;
+import hotelsolution.hotelservice.model.entity.Room;
+import hotelsolution.hotelservice.model.entity.RoomType;
 import hotelsolution.hotelservice.model.request.HotelCreateRequest;
 import hotelsolution.hotelservice.model.request.HotelUpdateRequest;
 import hotelsolution.hotelservice.model.request.RoomRequest;
+import hotelsolution.hotelservice.model.request.RoomTypeRequest;
 import hotelsolution.hotelservice.repository.HotelRepository;
+import hotelsolution.hotelservice.repository.RoomRepository;
+import hotelsolution.hotelservice.repository.RoomTypeRepository;
 import java.math.BigInteger;
 import java.util.List;
 import java.util.Optional;
@@ -21,10 +28,16 @@ import org.springframework.stereotype.Service;
 public class HotelServiceImpl implements HotelService {
 
   private HotelRepository hotelRepository;
+  private RoomRepository roomRepository;
+  private RoomTypeRepository roomTypeRepository;
 
   @Autowired
-  public HotelServiceImpl(HotelRepository hotelRepository) {
+  public HotelServiceImpl(HotelRepository hotelRepository,
+      RoomRepository roomRepository,
+      RoomTypeRepository roomTypeRepository) {
     this.hotelRepository = hotelRepository;
+    this.roomRepository = roomRepository;
+    this.roomTypeRepository = roomTypeRepository;
   }
 
   @Override
@@ -62,12 +75,6 @@ public class HotelServiceImpl implements HotelService {
             Hotel.builder()
                 .name(request.getName())
                 .starRating(request.getStarRating())
-                .totalRoom(request.getTotalRoom())
-                .rooms(request
-                    .getRoomRequestList()
-                    .stream()
-                    .map(RoomRequest::toRoomDao)
-                    .collect(Collectors.toList()))
                 .address(request.getAddressRequest().toAddressDao())
                 .build())
         .toHotelDto();
@@ -108,21 +115,11 @@ public class HotelServiceImpl implements HotelService {
     hotel.setStarRating(Optional
         .ofNullable(request.getStarRating())
         .orElse(hotel.getName()));
-    hotel.setTotalRoom(Optional
-        .ofNullable(request.getTotalRoom())
-        .orElse(hotel.getTotalRoom()));
     hotel.setAddress(Optional
         .ofNullable(request
             .getAddressRequest()
             .toAddressDao())
         .orElse(hotel.getAddress()));
-    hotel.setRooms(Optional
-        .ofNullable(request
-            .getRoomRequestList()
-            .stream()
-            .map(RoomRequest::toRoomDao)
-            .collect(Collectors.toList()))
-        .orElse(hotel.getRooms()));
   }
 
   @Override
@@ -141,5 +138,32 @@ public class HotelServiceImpl implements HotelService {
           log.error("Hotel not found with id [{}]", hotelId);
           return new HotelServiceException(ErrorResponse.HOTEL_NOT_FOUND_EXCEPTION);
         });
+  }
+
+  @Override
+  public RoomTypeDto addRoomType(RoomTypeRequest roomTypeRequest) {
+    log.info("Create room type with name [{}].", roomTypeRequest.getName());
+
+    return roomTypeRepository.save(
+        RoomType.builder()
+            .name(roomTypeRequest.getName())
+            .capacity(roomTypeRequest.getCapacity())
+            .rentFee(roomTypeRequest.getRentFee())
+            .build())
+        .toDto();
+  }
+
+  @Override
+  public RoomDto addRoom(RoomRequest roomRequest) {
+    log.info("Create room with room number [{}].", roomRequest.getRoomNumber());
+
+    return roomRepository.save(
+        Room.builder()
+            .roomNumber(roomRequest.getRoomNumber())
+            .roomStatus(roomRequest.getRoomStatus())
+            .roomType(roomTypeRepository.findById(roomRequest.getRoomTypeId()).get())
+            .hotel(hotelRepository.findById(roomRequest.getHotelId()).get())
+            .build())
+        .toDto();
   }
 }

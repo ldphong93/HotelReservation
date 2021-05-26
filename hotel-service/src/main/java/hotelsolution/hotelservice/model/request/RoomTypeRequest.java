@@ -1,7 +1,7 @@
 package hotelsolution.hotelservice.model.request;
 
-import hotelsolution.hotelservice.enums.RoomStatus;
-import java.math.BigInteger;
+import hotelsolution.hotelservice.enums.RoomTypeName;
+import java.math.BigDecimal;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import lombok.Builder;
@@ -11,14 +11,12 @@ import lombok.Getter;
 @Data
 @Getter
 @Builder
-public class RoomRequest {
-
-  private String roomNumber;
+public class RoomTypeRequest {
 
   @Enumerated(EnumType.STRING)
-  private RoomStatus roomStatus;
+  private RoomTypeName name;
 
-  private BigInteger roomTypeId;
+  private int capacity;
 
-  private BigInteger hotelId;
+  private BigDecimal rentFee;
 }

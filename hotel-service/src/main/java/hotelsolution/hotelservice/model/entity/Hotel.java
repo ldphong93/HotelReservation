@@ -36,15 +36,11 @@ public class Hotel {
   @Column(name = "star_rating")
   private String starRating;
 
-  @Column(name = "total_room")
-  private int totalRoom;
-
   @OneToOne(cascade = CascadeType.ALL)
   @JoinColumn(name = "address_id", referencedColumnName = "id")
   private Address address;
 
-  @OneToMany(targetEntity = Room.class, cascade = CascadeType.ALL)
-  @JoinColumn(name = "hotel_id", referencedColumnName = "id")
+  @OneToMany(mappedBy = "hotel")
   private List<Room> rooms;
 
   public HotelDto toHotelDto() {
@@ -52,7 +48,6 @@ public class Hotel {
         .id(this.getId())
         .name(this.getName())
         .starRating(this.getStarRating())
-        .totalRoom(this.getTotalRoom())
         .build();
   }
 }

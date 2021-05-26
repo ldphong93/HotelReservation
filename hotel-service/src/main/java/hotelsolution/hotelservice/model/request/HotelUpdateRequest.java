@@ -16,8 +16,6 @@ public class HotelUpdateRequest {
 
   private String starRating;
 
-  private int totalRoom;
-
   private AddressRequest addressRequest;
   private List<RoomRequest> roomRequestList;
 

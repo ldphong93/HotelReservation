@@ -1,6 +1,6 @@
 package hotelsolution.hotelservice.enums;
 
-public enum RoomType {
+public enum RoomTypeName {
   NORMAL,
   KING_BED,
   QUEEN_BED,

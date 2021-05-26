@@ -1,6 +1,5 @@
 package hotelsolution.hotelservice.model.request;
 
-import java.util.List;
 import javax.validation.constraints.NotBlank;
 import lombok.Builder;
 import lombok.Data;
@@ -16,10 +15,5 @@ public class HotelCreateRequest {
 
   private String starRating;
 
-  private int totalRoom;
-
   private AddressRequest addressRequest;
-
-  private List<RoomRequest> roomRequestList;
-
 }
