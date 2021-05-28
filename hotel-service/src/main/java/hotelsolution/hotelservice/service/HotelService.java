@@ -25,4 +25,10 @@ public interface HotelService {
   RoomTypeDto addRoomType(RoomTypeRequest roomTypeRequest);
 
   RoomDto addRoom(RoomRequest roomRequest);
+
+  HotelDto findHotelByName(String hotelName);
+
+  List<HotelDto> findHotelByCity(String hotelCity);
+
+  List<RoomDto> findAllRoomByHotelId(BigInteger hotelId);
 }

@@ -35,6 +35,25 @@ public class HotelControllerImpl implements HotelController{
   }
 
   @Override
+  public ResponseEntity<HotelDto> retrieveHotelByName(String hotelName) {
+    log.info("Retrieve hotel with name [{}].", hotelName);
+    return ResponseEntity.ok(hotelService.findHotelByName(hotelName));
+  }
+
+  @Override
+  public ResponseEntity<List<HotelDto>> retrieveHotelByCity(String hotelCity) {
+    log.info("Retrieve hotel with city [{}].", hotelCity);
+    return ResponseEntity.ok(hotelService.findHotelByCity(hotelCity));
+  }
+
+  @Override
+  public ResponseEntity<List<RoomDto>> retrieveAllRoomByHotelId(BigInteger hotelId) {
+
+    log.info("Retrieve all room by hotel id [{}]", hotelId);
+    return ResponseEntity.ok(hotelService.findAllRoomByHotelId(hotelId));
+  }
+
+  @Override
   public ResponseEntity<List<HotelDto>> retrieveAllHotel() {
 
     log.info("Retrieve all hotel.");

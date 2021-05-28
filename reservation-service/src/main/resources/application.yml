@@ -1,5 +1,24 @@
 server:
-  port: 8081
+  port: 8084
 spring:
   application:
     name: reservation-service
+  datasource:
+    url: jdbc:postgresql://localhost:5432/reservation
+    username: postgres
+    password: password
+    flyway:
+      schemas: reservation
+      user: postgres
+      password: password
+      enabled: true
+  config:
+    import: optional:consul:localhost:8500
+  cloud:
+    consul:
+      discovery:
+        instance-id: "${spring.cloud.client.hostname}:${spring.application.name}:${random.int[1,999999]}"
+internal-api:
+  hotel-service:
+    name: hotel-service
+    path: /api/hotel

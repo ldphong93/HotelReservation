@@ -26,12 +26,33 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/api/hotel")
 public interface HotelController {
 
-  @GetMapping("/{hotelId}")
+  @GetMapping("/id/{hotelId}")
   @ApiResponses(value = {
       @ApiResponse(responseCode = "200", description = "Hotel found.", content = {
           @Content(mediaType = "application/json", schema = @Schema(implementation = HotelDto.class))}),
       @ApiResponse(responseCode = "404", description = "Hotel not found", content = @Content)})
   ResponseEntity<HotelDto> retrieveHotel(@PathVariable BigInteger hotelId);
+
+  @GetMapping("/name/{hotelName}")
+  @ApiResponses(value = {
+      @ApiResponse(responseCode = "200", description = "Hotel found.", content = {
+          @Content(mediaType = "application/json", schema = @Schema(implementation = HotelDto.class))}),
+      @ApiResponse(responseCode = "404", description = "Hotel not found", content = @Content)})
+  ResponseEntity<HotelDto> retrieveHotelByName(@PathVariable String hotelName);
+
+  @GetMapping("/city/{hotelCity}")
+  @ApiResponses(value = {
+      @ApiResponse(responseCode = "200", description = "Hotel found.", content = {
+          @Content(mediaType = "application/json", schema = @Schema(implementation = HotelDto.class))}),
+      @ApiResponse(responseCode = "404", description = "Hotel not found", content = @Content)})
+  ResponseEntity<List<HotelDto>> retrieveHotelByCity(@PathVariable String hotelCity);
+
+  @GetMapping("/room/{hotelId}")
+  @ApiResponses(value = {
+      @ApiResponse(responseCode = "200", description = "All room found.", content = {
+          @Content(mediaType = "application/json", schema = @Schema(implementation = RoomDto.class))}),
+      @ApiResponse(responseCode = "404", description = "Room not found.", content = @Content)})
+  ResponseEntity<List<RoomDto>> retrieveAllRoomByHotelId(@PathVariable BigInteger hotelId);
 
   @GetMapping
   @ApiResponses(value = {

@@ -1,13 +1,10 @@
 package hotelsolution.hotelservice.model.entity;
 
-import hotelsolution.hotelservice.enums.RoomStatus;
 import hotelsolution.hotelservice.model.dto.RoomDto;
 import java.math.BigInteger;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -35,10 +32,6 @@ public class Room {
   @Column(name = "room_number")
   private String roomNumber;
 
-  @Enumerated(EnumType.STRING)
-  @Column(name = "room_status")
-  private RoomStatus roomStatus;
-
   @OneToOne(cascade = CascadeType.ALL)
   @JoinColumn(name = "room_type_id", referencedColumnName = "id")
   private RoomType roomType;
@@ -51,7 +44,6 @@ public class Room {
     return RoomDto.builder()
         .id(this.getId())
         .roomNumber(this.getRoomNumber())
-        .roomStatus(this.getRoomStatus())
         .roomTypeId(this.getRoomType().getId())
         .hotelId(this.getHotel().getId())
         .build();

@@ -1,4 +1,4 @@
-package hotelsolution.hotelservice.model.dto;
+package hotelsolution.reservationservice.model.dto;
 
 import java.math.BigInteger;
 import lombok.AllArgsConstructor;
@@ -8,10 +8,9 @@ import lombok.Getter;
 @Getter
 @Builder
 @AllArgsConstructor
-public class RoomDto {
+public class HotelDto {
 
   private BigInteger id;
-  private String roomNumber;
-  private BigInteger roomTypeId;
-  private BigInteger hotelId;
+  private String name;
+  private String starRating;
 }
