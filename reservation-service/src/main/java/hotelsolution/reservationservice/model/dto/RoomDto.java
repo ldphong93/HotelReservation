@@ -1,4 +1,4 @@
-package hotelsolution.hotelservice.model.dto;
+package hotelsolution.reservationservice.model.dto;
 
 import java.math.BigInteger;
 import lombok.AllArgsConstructor;

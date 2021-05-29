@@ -18,7 +18,6 @@ CREATE TABLE room
 (
     id BIGSERIAL PRIMARY KEY,
     room_number VARCHAR(255) NOT NULL,
-    room_status VARCHAR(255) NOT NULL,
     hotel_id BIGSERIAL,
     room_type_id BIGSERIAL
 );

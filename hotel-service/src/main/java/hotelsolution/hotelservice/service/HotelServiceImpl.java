@@ -54,6 +54,41 @@ public class HotelServiceImpl implements HotelService {
   }
 
   @Override
+  public HotelDto findHotelByName(String hotelName) {
+    log.info("Retrieve hotel with name [{}].", hotelName);
+
+    return hotelRepository
+        .findByName(hotelName)
+        .map(Hotel::toHotelDto)
+        .orElseThrow(() -> {
+
+          log.error("Hotel not found with name [{}].", hotelName);
+          return new HotelServiceException(ErrorResponse.HOTEL_NOT_FOUND_EXCEPTION);
+        });
+  }
+
+  @Override
+  public List<HotelDto> findHotelByCity(String hotelCity) {
+    log.info("Retrieve hotel with city [{}].", hotelCity);
+
+    return hotelRepository
+        .findAllByAddress_City(hotelCity)
+        .stream()
+        .map(Hotel::toHotelDto)
+        .collect(Collectors.toList());
+  }
+
+  @Override
+  public List<RoomDto> findAllRoomByHotelId(BigInteger hotelId) {
+    log.info("Retrieve all room by hotel id [{}]", hotelId);
+
+    return roomRepository.findAllByHotelId(hotelId)
+        .stream()
+        .map(Room::toDto)
+        .collect(Collectors.toList());
+  }
+
+  @Override
   public List<HotelDto> findAllHotel() {
     log.info("Retrieve all hotel.");
 
@@ -160,10 +195,10 @@ public class HotelServiceImpl implements HotelService {
     return roomRepository.save(
         Room.builder()
             .roomNumber(roomRequest.getRoomNumber())
-            .roomStatus(roomRequest.getRoomStatus())
             .roomType(roomTypeRepository.findById(roomRequest.getRoomTypeId()).get())
             .hotel(hotelRepository.findById(roomRequest.getHotelId()).get())
             .build())
         .toDto();
   }
+
 }

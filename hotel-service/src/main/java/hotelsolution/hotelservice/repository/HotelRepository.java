@@ -11,4 +11,10 @@ public interface HotelRepository extends JpaRepository<Hotel, BigInteger> {
 
   Optional<Hotel> findByName(String name);
 
+  /*@Query(
+      value = "SELECT * FROM hotel INNER JOIN address ON hotel.address_id= address.id AND address.city = ?1",
+      nativeQuery = true)
+  Optional<Hotel> findAllByCity(String hotelCity); Alternative*/
+
+  Optional<Hotel> findAllByAddress_City(String hotelCity);
 }
