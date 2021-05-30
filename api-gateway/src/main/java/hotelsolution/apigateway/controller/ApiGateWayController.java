@@ -23,6 +23,11 @@ public class ApiGateWayController {
     return "Welcome to javatechie !!";
   }
 
+  @GetMapping("/api/hotel/check")
+  public String aa() {
+    return "Welcome to hotel service !!";
+  }
+
   @PostMapping("/authenticate")
   public String generateToken(@RequestBody AuthRequest authRequest) throws Exception {
     try {

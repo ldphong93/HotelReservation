@@ -13,10 +13,12 @@ spring:
 #      config:
 #        import-check:
 #          enabled: false
-    gateway:
-      discovery:
-        locator:
-          lower-case-service-id: true
+
+#    gateway:
+#      discovery:
+#        locator:
+#          lower-case-service-id: true
+
 #      discovery:
 #        locator:
 #          enabled: true
