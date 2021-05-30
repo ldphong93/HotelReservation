@@ -14,7 +14,13 @@ spring:
 #        import-check:
 #          enabled: false
 
-#    gateway:
+    gateway:
+#      filter:
+#        remove-hop-by-hop:
+#          headers: true
+
+#      default-filters:
+#        - RemoveRequestHeader=Authorization
 #      discovery:
 #        locator:
 #          lower-case-service-id: true
@@ -41,6 +47,8 @@ spring:
           uri: http://localhost:8083
           predicates:
             - Path=/api/hotel/**
+#          default-filters:
+#            - RemoveRequestHeader=Authorization
 #          filters:
 #            - TokenRelay=
-#            - RemoveRequestHeader=Cookie
+#            - RemoveRequestHeader=Authorization
