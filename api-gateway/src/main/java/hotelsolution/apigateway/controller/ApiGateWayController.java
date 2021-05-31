@@ -20,7 +20,7 @@ public class ApiGateWayController {
 
   @GetMapping("/")
   public String welcome() {
-    return "Welcome to javatechie !!";
+    return "Welcome to main page !!";
   }
 
   @GetMapping("/api/hotel/check")

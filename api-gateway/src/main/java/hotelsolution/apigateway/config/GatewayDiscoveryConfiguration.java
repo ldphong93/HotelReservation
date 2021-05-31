@@ -17,7 +17,6 @@ public class GatewayDiscoveryConfiguration {
       ReactiveDiscoveryClient discoveryClient, DiscoveryLocatorProperties properties) {
     return new DiscoveryClientRouteDefinitionLocator(discoveryClient, properties);
   }
-
     @Bean
   public ServerCodecConfigurer serverCodecConfigurer() {
     return ServerCodecConfigurer.create();

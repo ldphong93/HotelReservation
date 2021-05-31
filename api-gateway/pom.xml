@@ -78,7 +78,7 @@
 			<version>2.3.1</version>
 		</dependency>
 
-<!--		<dependency>
+	<!--	<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-tomcat</artifactId>
 			&lt;!&ndash;			<scope>compile</scope>&ndash;&gt;
