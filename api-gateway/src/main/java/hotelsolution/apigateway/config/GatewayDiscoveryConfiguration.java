@@ -6,6 +6,7 @@ import org.springframework.cloud.gateway.discovery.DiscoveryClientRouteDefinitio
 import org.springframework.cloud.gateway.discovery.DiscoveryLocatorProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.codec.ServerCodecConfigurer;
 
 @Configuration
 @EnableDiscoveryClient
@@ -15,5 +16,10 @@ public class GatewayDiscoveryConfiguration {
   public DiscoveryClientRouteDefinitionLocator discoveryClientRouteLocator(
       ReactiveDiscoveryClient discoveryClient, DiscoveryLocatorProperties properties) {
     return new DiscoveryClientRouteDefinitionLocator(discoveryClient, properties);
+  }
+
+    @Bean
+  public ServerCodecConfigurer serverCodecConfigurer() {
+    return ServerCodecConfigurer.create();
   }
 }
