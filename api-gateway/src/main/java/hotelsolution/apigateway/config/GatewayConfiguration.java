@@ -1,17 +1,17 @@
 package hotelsolution.apigateway.config;
 
-import hotelsolution.apigateway.filter.AuthenticationFilter;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cloud.gateway.route.RouteLocator;
-import org.springframework.cloud.gateway.route.builder.RouteLocatorBuilder;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+
+/**
+ * For pure java gateway routing
+ * At present, using dynamic routing in yml file
+ */
 
 @Configuration
 public class GatewayConfiguration {
-
+/*
   @Autowired
-  AuthenticationFilter filter;
+  PureJavaFilter filter;
 
   @Bean
   public RouteLocator routes(RouteLocatorBuilder builder) {
@@ -34,6 +34,6 @@ public class GatewayConfiguration {
             .uri("http://localhost:8085"))
 
         .build();
-  }
+  }*/
 
 }
