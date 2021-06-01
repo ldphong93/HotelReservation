@@ -1,15 +1,15 @@
-package hotelsolution.apigateway;
+package com.example.authenservice;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 
-@SpringBootApplication
 @EnableDiscoveryClient
-public class ApiGatewayApplication {
+@SpringBootApplication
+public class AuthenServiceApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(ApiGatewayApplication.class, args);
+		SpringApplication.run(AuthenServiceApplication.class, args);
 	}
 
 }

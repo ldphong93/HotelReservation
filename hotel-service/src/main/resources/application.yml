@@ -18,3 +18,5 @@ spring:
     consul:
       discovery:
         instance-id: "${spring.cloud.client.hostname}:${spring.application.name}:${random.int[1,999999]}"
+        healthCheckPath: /actuator/health
+        healthCheckInterval: 20s

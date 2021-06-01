@@ -3,12 +3,14 @@ package hotelsolution.reservationservice.controller;
 import hotelsolution.reservationservice.model.dto.HotelDto;
 import hotelsolution.reservationservice.model.dto.ReservationDto;
 import hotelsolution.reservationservice.model.dto.RoomDto;
+import hotelsolution.reservationservice.model.entity.ResponseAPI;
 import hotelsolution.reservationservice.model.request.CreateReservationRequest;
 import hotelsolution.reservationservice.service.ReservationService;
 import java.math.BigInteger;
 import java.util.List;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -22,6 +24,17 @@ public class ReservationControllerImpl implements ReservationController {
   @Autowired
   public ReservationControllerImpl(ReservationService reservationService) {
     this.reservationService = reservationService;
+  }
+
+  @Override
+  public ResponseAPI retrieveHotelByNameAPI(String hotelName) {
+
+    log.info("Retrieve hotel by name [{}]", hotelName);
+    return ResponseAPI.builder()
+        .data(reservationService.findHotelByName(hotelName))
+        .code(HttpStatus.OK)
+        .message("hotel found")
+        .build();
   }
 
   @Override

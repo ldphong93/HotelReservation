@@ -3,6 +3,7 @@ package hotelsolution.reservationservice.controller;
 import hotelsolution.reservationservice.model.dto.HotelDto;
 import hotelsolution.reservationservice.model.dto.ReservationDto;
 import hotelsolution.reservationservice.model.dto.RoomDto;
+import hotelsolution.reservationservice.model.entity.ResponseAPI;
 import hotelsolution.reservationservice.model.request.CreateReservationRequest;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -20,6 +21,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @RequestMapping("/api/reservation")
 public interface ReservationController {
+
+  @GetMapping("/name/API/{hotelName}")
+  @ApiResponses(value = {
+      @ApiResponse(responseCode = "200", description = "Hotel found.", content = {
+          @Content(mediaType = "application/json", schema = @Schema(implementation = HotelDto.class))}),
+      @ApiResponse(responseCode = "404", description = "Hotel not found", content = @Content)})
+  ResponseAPI retrieveHotelByNameAPI(@PathVariable String hotelName);
 
   @GetMapping("/name/{hotelName}")
   @ApiResponses(value = {
