@@ -18,6 +18,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
+
 
 @Slf4j(topic = "[ReservationServiceImpl]")
 @Service
@@ -35,23 +37,34 @@ public class ReservationServiceImpl implements ReservationService {
   }
 
   @Override
+  @CircuitBreaker(name = "circuit_1", fallbackMethod = "fallBack1")
   public HotelDto findHotelByName(String hotelName) {
     log.info("Retrieve hotel by name [{}]", hotelName);
     ResponseEntity<HotelDto> responses = hotelServiceFeignClient.retrieveHotelByName(hotelName);
     return responses.getBody();
   }
 
-  @Override
+  public HotelDto fallBack1(String hotelName, Exception exception){
+    return HotelDto.builder()
+        .name("server is down")
+        .build();
+  }
+
+
+
+    @Override
   public List<HotelDto> findAllHotelByCity(String hotelCity) {
     log.info("Retrieve all hotel by city [{}]", hotelCity);
-    ResponseEntity<List<HotelDto>> responses = hotelServiceFeignClient.retrieveHotelByCity(hotelCity);
+    ResponseEntity<List<HotelDto>> responses = hotelServiceFeignClient
+        .retrieveHotelByCity(hotelCity);
     return responses.getBody();
   }
 
   @Override
   public List<RoomDto> findAllRoomByHotelId(BigInteger hotelId) {
     log.info("Retrieve all room by hotel id [{}]", hotelId);
-    ResponseEntity<List<RoomDto>> responses = hotelServiceFeignClient.retrieveAllRoomByHotelId(hotelId);
+    ResponseEntity<List<RoomDto>> responses = hotelServiceFeignClient
+        .retrieveAllRoomByHotelId(hotelId);
     return responses.getBody();
   }
 
