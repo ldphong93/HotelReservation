@@ -18,6 +18,7 @@
 		<spring-cloud-dependencies.version>2020.0.2</spring-cloud-dependencies.version>
 		<commons-lang3.version>3.12.0</commons-lang3.version>
 		<springdoc-openapi-ui.version>1.5.8</springdoc-openapi-ui.version>
+		<spring-cloud.version>2.1.1.RELEASE</spring-cloud.version>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -101,6 +102,22 @@
 		</dependency>
 
 		-->
+		<dependency>
+			<groupId>hotel-solution</groupId>
+			<artifactId>hotel-service</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-contract-wiremock</artifactId>
+			<version>3.0.2</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-contract-stub-runner</artifactId>
+			<scope>test</scope>
+		</dependency>
 	</dependencies>
 
 	<dependencyManagement>
