@@ -5,8 +5,6 @@ spring:
       username: admin-phong
       password: pass-phong
   config:
-#    import: configserver:http://localhost:8888
-
     activate:
       on-profile: security
   application:

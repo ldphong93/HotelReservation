@@ -5,12 +5,19 @@ spring:
     name: hotel-api-gateway
   zipkin:
     base-url: http://localhost:9411
-  config:
-    import: optional:consul:localhost:8500
+#  config:
+#    import: optional:consul:localhost:8500
   cloud:
+    bootstrap:
+      enabled: true
     consul:
       discovery:
-        instance-id: "${spring.cloud.client.hostname}:${spring.application.name}:${random.int[1,999999]}"
+        ip-address: EPVNHOCW0052.mshome.net
+        preferIpAddress: true
+#        instance-id: "${spring.cloud.client.hostname}:${spring.application.name}:${random.int[1,999999]}"
+        instance-id: ${spring.application.name}:${random.value}
+        healthCheckPath: /actuator/health
+        healthCheckInterval: 20s
     gateway:
       routes:
         - id: guest-service
@@ -22,12 +29,12 @@ spring:
             - CustomFilter1
 
         - id: hotel-service
-          #          uri: lb://HOTEL-SERVICE
+#          uri: lb://HOTEL-SERVICE
           uri: http://localhost:8083
           predicates:
             - Path=/api/hotel/**
           filters:
-            - CustomFilter1
+#            - CustomFilter1
 
         - id: reservation-service
         #          uri: lb://reservation-service

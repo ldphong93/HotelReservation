@@ -14,16 +14,14 @@ spring:
       user: postgres
       password: password
       enabled: true
-#  config:
-#    import: optional:consul:localhost:8500
   cloud:
     bootstrap:
       enabled: true
     consul:
-      host: localhost
-      port: 8500
       discovery:
+        ip-address: EPVNHOCW0052.mshome.net
+        preferIpAddress: true
         instance-id: ${spring.application.name}:${random.value}
-#        healthCheckPath: /actuator/health
-#        healthCheckInterval: 20s
+        healthCheckPath: /actuator/health
+        healthCheckInterval: 20s
 
