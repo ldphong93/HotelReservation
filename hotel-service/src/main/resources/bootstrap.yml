@@ -1,8 +1,13 @@
 spring:
   cloud:
     config:
-      uri: ${CONFIG_URL}
-      username: ${CONFIG_USER}
-      password: ${CONFIG_PASSWORD}
+      uri: http://localhost:8888
+      username: admin-phong
+      password: pass-phong
+  config:
+#    import: configserver:http://localhost:8888
+
+    activate:
+      on-profile: security
   application:
     name: hotel-service
