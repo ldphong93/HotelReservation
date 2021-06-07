@@ -45,4 +45,5 @@ eureka:
       defaultZone: http://localhost:8761/eureka
 #  instance:
 #    preferIpAddress: true
+#    instance-id: "EPVNHOCW0052.princeton.epam.com:${spring.application.name}:${random.int[1,999999]}"
 #  shouldUseDns: false
