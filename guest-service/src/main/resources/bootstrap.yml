@@ -8,4 +8,4 @@ spring:
     activate:
       on-profile: security
   application:
-    name: reservation-service
+    name: guest-service

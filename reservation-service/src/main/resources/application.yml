@@ -14,19 +14,17 @@ spring:
       user: postgres
       password: password
       enabled: true
-  eureka:
-    client:
-      healthcheck:
-        enabled: true
-      registerWithEureka: true
-      fetchRegistry: true
-      serviceUrl:
-        defaultZone: ${EUREKA_URI:http://localhost:8761/eureka}
-    instance:
-      hostName: ${spring.application.name}
   cloud:
     bootstrap:
       enabled: true
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka
+  instance:
+    hostname: localhost
+
 internal-api:
   hotel-service:
     name: hotel-service
