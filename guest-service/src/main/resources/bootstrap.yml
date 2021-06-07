@@ -1,0 +1,11 @@
+spring:
+  cloud:
+    config:
+      uri: http://localhost:8888
+      username: admin-phong
+      password: pass-phong
+  config:
+    activate:
+      on-profile: security
+  application:
+    name: guest-service

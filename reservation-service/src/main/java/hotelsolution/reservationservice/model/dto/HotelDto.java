@@ -10,7 +10,7 @@ import lombok.Getter;
 @AllArgsConstructor
 public class HotelDto {
 
-  private BigInteger id;
-  private String name;
-  private String starRating;
+  private final BigInteger id;
+  private final String name;
+  private final String starRating;
 }
