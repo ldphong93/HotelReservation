@@ -25,8 +25,8 @@ import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
 @Service
 public class ReservationServiceImpl implements ReservationService {
 
-  private ReservationRepository reservationRepository;
-  private HotelServiceFeignClient hotelServiceFeignClient;
+  private final ReservationRepository reservationRepository;
+  private final HotelServiceFeignClient hotelServiceFeignClient;
 
   @Autowired
   public ReservationServiceImpl(

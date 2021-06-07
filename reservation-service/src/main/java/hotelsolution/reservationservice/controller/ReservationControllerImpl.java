@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class ReservationControllerImpl implements ReservationController {
 
-  private ReservationService reservationService;
+  private final ReservationService reservationService;
 
   @Autowired
   public ReservationControllerImpl(ReservationService reservationService) {

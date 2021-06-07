@@ -5,49 +5,44 @@ spring:
     name: hotel-api-gateway
   zipkin:
     base-url: http://localhost:9411
-#  config:
-#    import: optional:consul:localhost:8500
   cloud:
-    bootstrap:
-      enabled: true
-    consul:
-      discovery:
-        ip-address: EPVNHOCW0052.mshome.net
-        preferIpAddress: true
-#        instance-id: "${spring.cloud.client.hostname}:${spring.application.name}:${random.int[1,999999]}"
-        instance-id: ${spring.application.name}:${random.value}
-        healthCheckPath: /actuator/health
-        healthCheckInterval: 20s
     gateway:
       routes:
         - id: guest-service
-          #          uri: lb://guest-service
-          uri: http://localhost:8082
+          uri: lb://GUEST-SERVICE
+          #          uri: http://localhost:8082
           predicates:
             - Path=/api/guest/**
           filters:
             - CustomFilter1
 
         - id: hotel-service
-#          uri: lb://HOTEL-SERVICE
-          uri: http://localhost:8083
+          uri: lb://HOTEL-SERVICE
+          #          uri: http://localhost:8083
           predicates:
             - Path=/api/hotel/**
           filters:
-#            - CustomFilter1
+        #            - CustomFilter1
 
         - id: reservation-service
-        #          uri: lb://reservation-service
-          uri: http://localhost:8084
+          uri: lb://RESERVATION-SERVICE
+          #          uri: http://localhost:8084
           predicates:
             - Path=/api/reservation/**
           filters:
-            - CustomFilter1
+        #            - CustomFilter1
 
         - id: authentication-service
-          #          uri: lb://authentication-service
-          uri: http://localhost:8085
+          uri: lb://AUTHENTICATION-SERVICE
+          #          uri: http://localhost:8085
           predicates:
             - Path=/api/authentication/**
           filters:
             - CustomFilter1
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka
+#  instance:
+#    preferIpAddress: true
+#  shouldUseDns: false

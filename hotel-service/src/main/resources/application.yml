@@ -17,11 +17,15 @@ spring:
   cloud:
     bootstrap:
       enabled: true
-    consul:
-      discovery:
-        ip-address: EPVNHOCW0052.mshome.net
-        preferIpAddress: true
-        instance-id: ${spring.application.name}:${random.value}
-        healthCheckPath: /actuator/health
-        healthCheckInterval: 20s
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka
+#    preferIpAddress: true
+#  shouldUseDns: false
 
+
+#spring:
+#  cloud:
+#    bootstrap:
+#      enabled: true

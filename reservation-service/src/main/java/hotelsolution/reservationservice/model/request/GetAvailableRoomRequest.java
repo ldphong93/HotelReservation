@@ -9,7 +9,7 @@ import lombok.Getter;
 @Builder
 public class GetAvailableRoomRequest {
 
-  private BigInteger hotelId;
-  private LocalDate startDate;
-  private LocalDate endDate;
+  private final BigInteger hotelId;
+  private final LocalDate startDate;
+  private final LocalDate endDate;
 }
